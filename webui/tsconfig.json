@@ -5,8 +5,9 @@
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"paths": {
-			"*": ["./node_modules/*"]
-		},
+      "@companion-app/shared/*": ["./node_modules/@companion-app/shared/*"],
+      "*": ["./node_modules/*"]
+    },
 		"module": "Node16",
 		"moduleResolution": "Node16",
 		"jsx": "react",
