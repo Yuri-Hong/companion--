@@ -65,8 +65,11 @@
 		"typescript": "~5.3.3",
 		"webpack": "^5.89.0",
 		"webpack-cli": "^5.1.4",
-		"zx": "^7.2.3"
-	},
+		"zx": "^7.2.3",
+    "chokidar": "^3.6.0",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.4"
+  },
 	"dependencies": {
 		"@companion-module/base": "~1.7.0",
 		"@elgato-stream-deck/node": "^6.0.0",
@@ -128,6 +131,12 @@
 	"collective": {
 		"type": "donorbox",
 		"url": "https://donorbox.org/bitfocus-opensource"
-	}
+	},
+  "resolutions": {
+    "app-builder-bin": "npm:@julusian/app-builder-bin@4.0.1",
+    "node-gyp-build": "github:julusian/node-gyp-build#cross-install-support",
+    "node-hid": "npm:@julusian/hid@3.0.1-0",
+    "osc/serialport": "^10.5.0"
+  }
 
 }

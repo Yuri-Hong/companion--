@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "dev": "run start",
+    "dev": "yarn run start",
     "build": "vite build",
     "serve": "vite preview",
     "check-types": "tsc --noEmit",
