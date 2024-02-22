@@ -67,13 +67,14 @@
 		"zx": "^7.2.3"
 	},
 	"dependencies": {
+		"@companion-app/shared": "link:../shared-lib/lib",
 		"@companion-module/base": "~1.7.0",
-    "@companion-app/shared": "link:../shared-lib/lib",
 		"@elgato-stream-deck/node": "^6.0.0",
 		"@jsep-plugin/numbers": "^1.0.1",
 		"@jsep-plugin/template": "^1.0.3",
 		"@julusian/image-rs": "^0.2.1",
 		"@julusian/jpeg-turbo": "^2.1.0",
+		"@julusian/skia-canvas": "^1.0.5",
 		"@loupedeck/node": "^1.0.0",
 		"@sentry/integrations": "^7.101.0",
 		"@sentry/node": "^7.101.0",
@@ -117,6 +118,7 @@
 		"socketcluster-client": "^16.1.1",
 		"supports-color": "^9.4.0",
 		"type-fest": "^4.10.2",
+		"usb": "^2.11.0",
 		"utf-8-validate": "^6.0.3",
 		"uuid": "^9.0.1",
 		"videohub-server": "^0.3.0",
@@ -128,5 +130,9 @@
 	"collective": {
 		"type": "donorbox",
 		"url": "https://donorbox.org/bitfocus-opensource"
+	},
+	"resolutions": {
+		"node-hid": "npm:@julusian/hid#3.0.1.0",
+		"osc/serialport": "^10.5.0"
 	}
 }
