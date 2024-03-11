@@ -253,7 +253,6 @@ class InstanceModules extends CoreBase {
 	clientConnect(client) {
 		client.onPromise('modules:subscribe', () => {
 			client.join(ModulesRoom)
-
 			return this.#lastModulesJson || this.getModulesJson()
 		})
 

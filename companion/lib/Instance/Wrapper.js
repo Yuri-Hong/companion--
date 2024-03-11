@@ -109,6 +109,7 @@ class SocketEventsHandler {
 			funcs,
 			(msg) => {
 				if (monitor.child) {
+          this.logger.info(`发送的信息: ${JSON.stringify(msg)}`)
 					monitor.child.send(msg)
 				} else {
 					this.logger.debug(`Child is not running, unable to send message: ${JSON.stringify(msg)}`)

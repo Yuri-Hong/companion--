@@ -476,7 +476,6 @@ class ControlsController extends CoreBase {
 
 			const controlId = this.page.getControlIdAt(location)
 			if (!controlId) return
-
 			this.pressControl(controlId, direction, `hot:${surfaceId}`)
 		})
 
