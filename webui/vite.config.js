@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import reactPlugin from '@vitejs/plugin-react'
 import * as envCompatible from 'vite-plugin-env-compatible'
 import legacyPlugin from '@vitejs/plugin-legacy'
+import path from 'path'
 
 const upstreamUrl = process.env.UPSTREAM_URL || '127.0.0.1:8000'
 
@@ -13,6 +14,9 @@ export default defineConfig({
 	build: {
 		outDir: 'build',
 		chunkSizeWarningLimit: 1 * 1000 * 1000, // Disable warning about large chunks
+    // rollupOptions: {
+    //   external: ['@companion-app/shared']
+    // }
 	},
 	server: {
 		proxy: {
@@ -44,6 +48,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'react-windowed-select': 'react-windowed-select/dist/main.js',
+      '@companion-app/shared': path.resolve(__dirname, '../shared-lib/lib')
 		},
 	},
 })
