@@ -48,13 +48,12 @@ export function socketEmitPromise<T extends keyof SocketEmitPromiseEvents>(
 	timeoutMessage?: string
 ): Promise<ReturnType<SocketEmitPromiseEvents[T]>> {
 	const p = new Promise<ReturnType<SocketEmitPromiseEvents[T]>>((resolve, reject) => {
-		console.log('send', name, ...args)
-
 		socket.emit(
 			name,
 			// @ts-expect-error types are unhappy because of the complex setup
 			args,
 			(err, res) => {
+        console.log('send',name,args,res)
 				if (err) reject(err)
 				else resolve(res)
 			}
