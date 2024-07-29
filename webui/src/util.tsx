@@ -54,7 +54,7 @@ export function socketEmitPromise<T extends keyof SocketEmitPromiseEvents>(
 		)
 	})
 
-	timeout = timeout ?? 5000
+	timeout = timeout ?? 20000
 	return pTimeout(p, {
 		milliseconds: timeout,
 		message: timeoutMessage ?? `Timed out after ${timeout / 1000}s`,
