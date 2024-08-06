@@ -135,7 +135,6 @@ const ConnectionEditPanelInner = observer(function ConnectionEditPanelInner({
 							// Real validation status gets generated when the editor components first mount
 							validFields[field.id] = true
 						}
-
 						setConfigFields(res.fields)
 						setConnectionLabel(res.label ?? null)
 						setConnectionType(res.instance_type ?? null)
@@ -204,6 +203,7 @@ const ConnectionEditPanelInner = observer(function ConnectionEditPanelInner({
 						</CCol>
 
 						{configOptions.map((field, i) => {
+						  console.log('206',configOptions)
 							return (
 								<CCol
 									key={i}
