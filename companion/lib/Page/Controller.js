@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import CoreBase from '../Core/Base.js'
-import { oldBankIndexToXY } from '@companion-app/shared/ControlId.js'
+import { oldBankIndexToXY ,CreateBankControlId} from '@companion-app/shared/ControlId.js'
+import { nanoid } from 'nanoid'
 
 const PagesRoom = 'pages'
 
@@ -40,6 +41,7 @@ class PageController extends CoreBase {
 	 * @readonly
 	 */
 	#pages
+
 
 	/**
 	 * @param {import('../Registry.js').default} registry - the application core

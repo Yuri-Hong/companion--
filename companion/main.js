@@ -32,7 +32,7 @@ program
 		'--admin-interface <string>',
 		'Set the interface the admin ui should bind to. The first ip on this interface will be used'
 	)
-	.option('--admin-address <string>', 'Set the ip address the admin ui should bind to (default: "0.0.0.0")')
+	.option('--admin-address <string>', 'Set the ip address the admin ui should bind to (default: "0.0.0.0")',"0.0.0.0")
 	.option(
 		'--config-dir <string>',
 		'Use the specified directory for storing configuration. The default path varies by system, and is different to 2.2 (the old path will be used if existing config is found)'
@@ -72,8 +72,8 @@ program.command('start', { isDefault: true, hidden: true }).action(() => {
 		process.exit(1)
 	}
 
-	let adminIp = options.adminAddress || '0.0.0.0' // default to admin global
-
+	// let adminIp = options.adminAddress || '0.0.0.0' // default to admin global
+	let adminIp = '0.0.0.0' // default to admin global
 	if (options.adminInterface) {
 		adminIp = null
 

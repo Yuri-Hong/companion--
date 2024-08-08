@@ -71,6 +71,8 @@ class ControlsController extends CoreBase {
 	 */
 	#controls = new Map()
 
+  #button_ids
+
 	/**
 	 * Triggers events
 	 * @type {TriggerEvents}
@@ -94,6 +96,7 @@ class ControlsController extends CoreBase {
 		this.actions = new ActionRunner(registry)
 		this.actionRecorder = new ActionRecorder(registry)
 		this.triggers = new TriggerEvents()
+    this.#button_ids = this.db.getKey('button_ids', []) ?? []
 	}
 
 	/**
@@ -158,6 +161,35 @@ class ControlsController extends CoreBase {
 				runtime: control?.toRuntimeJSON(),
 			}
 		})
+    client.onPromise('controls:create_button', () => {
+      let buttonId = this.createButtonControl_button()
+      client.join(ControlConfigRoom(buttonId))
+      const control = this.getControl(buttonId)
+      this.#button_ids.push({
+        buttonId:buttonId,
+        config: control?.toJSON(false),
+        runtime: control?.toRuntimeJSON(),
+      })
+      this.db.setKey('button_ids', this.#button_ids)
+      return {
+        buttonId:buttonId,
+        config: control?.toJSON(false),
+        runtime: control?.toRuntimeJSON(),
+      }
+    })
+    client.onPromise('controls:view_all_buttons', () => {
+      return this.#button_ids
+    })
+    client.onPromise('controls:delete_button', (button_id) => {
+      if(button_id){
+        this.deleteControl(button_id)
+        this.#button_ids = this.#button_ids.filter(e=>e.buttonId !== button_id)
+        this.db.setKey('button_ids', this.#button_ids)
+        return true
+      }
+      return false
+    })
+
 
 		client.onPromise('controls:unsubscribe', (controlId) => {
 			client.leave(ControlConfigRoom(controlId))
@@ -1212,6 +1244,13 @@ class ControlsController extends CoreBase {
 
 		return controlId
 	}
+  createButtonControl_button( newType = 'button') {
+    const controlId = CreateBankControlId(nanoid())
+    const newControl = this.#createClassForControl(controlId, 'button', newType, false)
+    if (!newControl) return null
+    this.#controls.set(controlId, newControl)
+    return controlId
+  }
 
 	/**
 	 * Set an item as learning, or not

@@ -528,7 +528,6 @@ class DataImportExport extends CoreBase {
 				}
 				const oldControlId = this.page.getControlIdAt(location)
 				if (oldControlId) this.controls.deleteControl(oldControlId)
-
 				this.controls.createButtonControl(location, definition.type)
 			}
 		}
