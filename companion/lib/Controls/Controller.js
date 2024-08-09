@@ -185,6 +185,7 @@ class ControlsController extends CoreBase {
         this.deleteControl(button_id)
         this.#button_ids = this.#button_ids.filter(e=>e.buttonId !== button_id)
         this.db.setKey('button_ids', this.#button_ids)
+        client.leave(ControlConfigRoom(button_id))
         return true
       }
       return false
@@ -502,6 +503,9 @@ class ControlsController extends CoreBase {
 
 			this.pressControl(controlId, direction, `hot:${surfaceId}`)
 		})
+    client.onPromise('controls:hot-press-button', (controlId, direction, surfaceId) => {
+      this.pressControl(controlId, direction, `hot:${surfaceId}`)
+    })
 
 		client.onPromise('controls:hot-rotate', (location, direction, surfaceId) => {
 			this.logger.silly(`being told from gui to hot rotate ${formatLocation(location)} ${direction} ${surfaceId}`)
