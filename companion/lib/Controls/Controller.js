@@ -161,15 +161,16 @@ class ControlsController extends CoreBase {
 				runtime: control?.toRuntimeJSON(),
 			}
 		})
+    client.onPromise('controls:delete_all_button', () => {
+        this.#button_ids = []
+        this.db.setKey('button_ids', [])
+        return true
+    })
     client.onPromise('controls:create_button', () => {
       let buttonId = this.createButtonControl_button()
       client.join(ControlConfigRoom(buttonId))
       const control = this.getControl(buttonId)
-      this.#button_ids.push({
-        buttonId:buttonId,
-        config: control?.toJSON(false),
-        runtime: control?.toRuntimeJSON(),
-      })
+      this.#button_ids.push(buttonId)
       this.db.setKey('button_ids', this.#button_ids)
       return {
         buttonId:buttonId,
@@ -178,12 +179,22 @@ class ControlsController extends CoreBase {
       }
     })
     client.onPromise('controls:view_all_buttons', () => {
-      return this.#button_ids
+      const arr =[]
+      for (let buttonId of this.#button_ids){
+        const control = this.getControl(buttonId)
+        let item ={
+          buttonId:buttonId,
+          config: control?.toJSON(false),
+          runtime: control?.toRuntimeJSON(),
+        }
+        arr.push(item)
+      }
+      return arr
     })
     client.onPromise('controls:delete_button', (button_id) => {
       if(button_id){
         this.deleteControl(button_id)
-        this.#button_ids = this.#button_ids.filter(e=>e.buttonId !== button_id)
+        this.#button_ids = this.#button_ids.filter(e=>e !== button_id)
         this.db.setKey('button_ids', this.#button_ids)
         client.leave(ControlConfigRoom(button_id))
         return true
