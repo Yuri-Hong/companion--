@@ -1,6 +1,8 @@
 import EventEmitter from 'events'
 import fs from 'fs-extra'
 import express from 'express'
+import axios from 'axios'
+import os from 'os'
 import LogController from './Log/Controller.js'
 import CloudController from './Cloud/Controller.js'
 import ControlsController from './Controls/Controller.js'
@@ -302,6 +304,27 @@ class Registry extends EventEmitter {
 				}
 			)
 		}
+		const networkInterfaces = os.networkInterfaces();
+		const params = {description: "",
+			ip: "",
+			port: '8000',
+			projectid: 0,
+			name:''
+		};
+
+		for (const interfaceName in networkInterfaces) {
+			const interfaces = networkInterfaces[interfaceName];
+			// @ts-ignore
+			for (const iface of interfaces) {
+			// 忽略IPv6和本地回环地址
+			if (iface.family === 'IPv4' && !iface.internal) {
+				params.ip = iface.address,
+				params.description = iface.mac,
+				params.name = interfaceName
+			}
+			}
+		}
+		await axios.post('https://dcdev.vspo.cn/companion/updatecompanionserverip', params);
 	}
 
 	/**
